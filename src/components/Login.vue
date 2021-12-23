@@ -1,0 +1,63 @@
+<template>
+    <div>
+       
+    <el-card shadow="always">
+
+
+    <h3>로그인</h3>
+
+    <el-form :inline="true"  class="demo-form-inline" style="margin-bottom:-15px" >
+    <el-form-item label="아이디" label-width="120px">
+      <el-input v-model="member.userid" placeholder="아이디"></el-input>
+    </el-form-item>
+    </el-form>
+    
+    <el-form :inline="true"  class="demo-form-inline" style="margin-bottom:-15px">
+    <el-form-item label="암호" label-width="120px">
+      <el-input v-model="member.userpw" placeholder="암호"></el-input>
+    </el-form-item>
+     </el-form>
+
+    <el-form :inline="true" class="demo-form-inline" style="margin-bottom:-10px">
+        <el-form-item label=" " label-width="120px">
+        <el-button type="primary" @click="handleLogin">로그인</el-button>
+        </el-form-item>
+    </el-form>
+
+    </el-card>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        methods:{
+            handleLogin(){
+                this.token = '43987f398j3fu..생략..98h3r8';
+                sessionStorage.setItem("TOKEN", this.token);
+                
+                alert('로그인 되었습니다.');
+
+                // 부모컴포넌트로 이벤트를 발생시킴 
+                // (이벤트명은 changeLogged)
+                this.$emit('changeLogged');
+                this.$router.push({name:'Home'});
+            }
+        },
+
+        data (){
+            return {
+                member : {
+                    userid : '',
+                    userpw : '',
+                    token : '', /* 로그인 성공시에 발행되는 인증키 */
+                }
+            }
+        }
+        
+    }
+</script>
+
+<style scoped>
+
+</style>
