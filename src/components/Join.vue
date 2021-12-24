@@ -1,7 +1,7 @@
 <template>
     <div>
 
-    <el-card shadow="always">
+
 
     <h3>회원가입</h3>
 
@@ -54,13 +54,13 @@
 
     <el-form  :inline="true" label-width="120px" style="margin-bottom:-20px">
         <el-form-item label="이메일">
-        <el-input v-model="member.mail"></el-input>
+        <el-input v-model="member.email"></el-input>
         </el-form-item>
         <el-form-item label="">
             <label>@</label>
         </el-form-item>    
         <el-form-item label="">
-            <el-select v-model="member.mail" placeholder="이메일을 선택해주세요.">
+            <el-select v-model="member.usermail" placeholder="이메일을 선택해주세요.">
                 <el-option v-for="tmp in emailoption" :key="tmp" :label="tmp" :value="tmp">
                 </el-option>
             </el-select>
@@ -103,7 +103,6 @@
     </el-form>
 
 
-    </el-card>
         
     </div>
 </template>
@@ -150,7 +149,8 @@
                 radio : false,
                 textarea :'',
                 birth:'',
-                mail:'',
+                email:'',
+                usermail:'',
                 },
 
                 emailoption : ['hanmail.net', 'naver.com', 'gmail.com'],

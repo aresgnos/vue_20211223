@@ -1,118 +1,121 @@
 <template>
   <div>
 
+    
     <el-container>
       <el-header>
-        <el-menu :default-active="activeIndex" class="el-menu-demo"
-            mode="horizontal" @select="handleSelect" router="ture"> 
-            <el-menu-item index="home">홈</el-menu-item>
+        <el-menu class="el-menu-demo" mode="horizontal" :router ="true"> 
 
-            <el-menu-item index="login" v-if="!logged">로그인</el-menu-item>
-            <el-menu-item index="logout" v-if="logged">로그아웃</el-menu-item>
-            <el-menu-item index="join">회원가입</el-menu-item>
-            <el-menu-item index="mypage" v-if="logged">마이페이지</el-menu-item>
+            <el-menu-item index="home" ref="home">홈</el-menu-item>
+            <el-menu-item index="login" ref="login" v-show="!logged">로그인</el-menu-item>
+            <el-menu-item index="logout" ref="logout" v-show="logged">로그아웃</el-menu-item>
+            <el-menu-item index="mypage" ref="mypage" v-show="logged">마이페이지</el-menu-item>
+            <el-menu-item index="join" ref="join">회원가입</el-menu-item>
+            <el-menu-item index="board" ref="board">게시판</el-menu-item>
         </el-menu>
       </el-header>
+
+      <!-- v-if는 태그를 생성시키지 않음
+      v-show는 태그를 생성, 숨김으로 -->
 
       <el-main>
         <router-view @changeLogged="changeLogged"></router-view>
       </el-main>
-
-      <el-footer>Footer</el-footer>
     </el-container>
-
+      <el-footer>Footer</el-footer>
+    
+   
 
   </div>
 </template>
 
 <script>
-  export default {
-    // 생명주기
-    created(){
-      const tmp = sessionStorage.getItem("activeIndex");
-      console.log('created');
+import {useStore} from 'vuex';
 
-      // 초기상태에 아무것도 없어서=null이므로 100으로 설정
-      if(tmp===null){
-        this.activeIndex='/home';
-        this.$router.push({path:'/home'});
-      }
-      else {
-        this.activeIndex = tmp;
-      }
+  export default {
+    // 가장 먼저 호출됨, 태그 생성이 완료가 안돼서 태그를 찾거나 클릭이 불가능
+    // DOM 접근 불가능 좋은 예는, 백엔드로부터 데이터를 받는 것까지.
+    created(){
+
     },
+    
+    // DOM 접근이 가능 ex) 태그를 조작, 클릭 등을 수행
     mounted(){
-      console.log('mounted');
+      // localhaost:8080/abc (주소를 찾는 것)
+      console.log(window.location.pathname.substr(1));
+      const path = window.location.pathname.substr(1); // 슬러시 앞이 생략된 주소를 찾아줌
+      this.changeLogged(path);
+      // console.log(path);
+
+      this.store.subscribe((mutation, state)=>{
+        console.log(mutation, state);
+        
+        if(mutation.type==='setMenu'){
+          const tmp = mutation.payload;
+          this.changeLogged(tmp);
+          }
+      });
+    },
       
-    },
-    updated(){
-      console.log('updated');
-    },
+      // 메소드 -> 로그인 됐느지 안됐는지 체크해서 메뉴를 변경(로그인, 로그아웃)
+      // path 클릭을 해야되는 메뉴의 종류를 전달
+
 
     data(){
       return{
-        activeIndex : '',
         logged : false,
+        store : useStore(),
+
       }
     },
 
     methods:{
-      handleSelect(idx){
-        console.log('App.vue => handleSelect', idx);
 
-        if(idx === 'join') {
-          this.$router.push({name:'Join'});
-        }
-        else if(idx === 'home') {
-          this.$router.push({name:'Home'});
-        }
-        else if(idx === 'login') {
-          this.$router.push({name:'Login'});
-        }
-        else if(idx === 'logout') {
-          this.$router.push({name:'Logout'});
-        }
-        else if(idx === 'mypage') {
-          this.$router.push({name:'Mypage'});
-        }
-        
-        // 세션장소에 현재의 메뉴의 index를 저장
-        sessionStorage.setItem('activeIndex', idx);
-      },
+      changeLogged(path) { // 현재 로그인 상태를 확인하기
+      console.log('changeLogged', path);
 
-      changeLogged() { // 현재 로그인 상태를 확인하기
+        // 세션 저장소로부터 토큰값(인증키)을 읽음
         const token = sessionStorage.getItem("TOKEN");
-        if (token === null){
-          this.logged = false;
+
+        if (token === null){ // 로그인을 못 했음
+          this.logged = false; // state 변수에 logged를 거짓
         }
         else {
           this.logged = true;
         }
-        this.activeIndex = '100';
+
+          // this.$refs.home.click(); === this.$refs['home'].click();
+          // this.$refs.login.click(); === this.$refs['login'].click();
+          // this.$refs.path.click(); === this.$refs[path].click(); = path 안에 있는걸 찾는다.
+        
+        this.$refs[path].$el.click();
       }
     }
-    
   }
 </script>
 
 <style>
-.el-header,
+
+
+.el-header {
+  background-color: #EAD3CB;
+}
 .el-footer {
-  background-color: #ffffff;
+  background-color: #90AACB;
   color: var(--el-text-color-primary);
   text-align: center;
   line-height: 60px;
 }
 
 .el-aside {
-  background-color: #d3dce6;
+  background-color: #EAD3CB;
   color: var(--el-text-color-primary);
   text-align: center;
   line-height: 200px;
 }
 
 .el-main {
-  background-color: #e9eef3;
+  background-color: #ffffff;
   color: var(--el-text-color-primary);
   /* text-align: center;
   line-height: 160px; */

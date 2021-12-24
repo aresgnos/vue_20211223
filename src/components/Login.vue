@@ -1,9 +1,9 @@
 <template>
     <div>
        
-    <el-card shadow="always">
+   
 
-
+    
     <h3>로그인</h3>
 
     <el-form :inline="true"  class="demo-form-inline" style="margin-bottom:-15px" >
@@ -24,12 +24,13 @@
         </el-form-item>
     </el-form>
 
-    </el-card>
 
     </div>
 </template>
 
 <script>
+import {useStore} from 'vuex';
+
     export default {
         methods:{
             handleLogin(){
@@ -37,11 +38,13 @@
                 sessionStorage.setItem("TOKEN", this.token);
                 
                 alert('로그인 되었습니다.');
+                
+                this.store.commit('setMenu', 'home');
 
                 // 부모컴포넌트로 이벤트를 발생시킴 
-                // (이벤트명은 changeLogged)
-                this.$emit('changeLogged');
-                this.$router.push({name:'Home'});
+                // (이벤트명은 changeLogged('home'))
+                // changelogged라는 페이지를 home으로 조작할 수 있다.
+                // this.$emit('changeLogged','home'); 위에 cost~가 대체       
             }
         },
 
@@ -51,7 +54,8 @@
                     userid : '',
                     userpw : '',
                     token : '', /* 로그인 성공시에 발행되는 인증키 */
-                }
+                },
+                store : useStore()
             }
         }
         
