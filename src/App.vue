@@ -12,6 +12,7 @@
             <el-menu-item index="mypage" ref="mypage" v-show="logged">마이페이지</el-menu-item>
             <el-menu-item index="join" ref="join">회원가입</el-menu-item>
             <el-menu-item index="board" ref="board">게시판</el-menu-item>
+            <el-menu-item index="seller" ref="seller">판매자</el-menu-item>
         </el-menu>
       </el-header>
 
@@ -57,7 +58,7 @@ import {useStore} from 'vuex';
       });
     },
       
-      // 메소드 -> 로그인 됐느지 안됐는지 체크해서 메뉴를 변경(로그인, 로그아웃)
+      // 메소드 -> 로그인 됐는지 안됐는지 체크해서 메뉴를 변경(로그인, 로그아웃)
       // path 클릭을 해야되는 메뉴의 종류를 전달
 
 
@@ -88,7 +89,9 @@ import {useStore} from 'vuex';
           // this.$refs.login.click(); === this.$refs['login'].click();
           // this.$refs.path.click(); === this.$refs[path].click(); = path 안에 있는걸 찾는다.
         
+        if(typeof this.$refs[path] !== 'undefined' ){
         this.$refs[path].$el.click();
+        }
       }
     }
   }

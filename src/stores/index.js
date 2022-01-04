@@ -1,5 +1,6 @@
 // CMD > npm i vuex@next --save
 import { createStore } from "vuex";
+import axios from "axios";
 
 export default createStore({
 
@@ -9,12 +10,18 @@ export default createStore({
     state : {
         counter : 20,
         menu : 'home', 
+        items : [],
         
         // 더 추가 가능
     },
 
     // 결과값을 가지고 가는 메소드
     getters : {
+       
+        getItems(state) {
+            return state.items;
+        },
+
         getMenu(state){
             return state.menu;
         },
@@ -30,6 +37,11 @@ export default createStore({
 
     // 결과값을 바꾸는 것(동기=순차적으로 시행한다. 효율이 떨어짐)
     mutations:{
+
+        setItems(state, value) {
+            state.items = value;
+        },
+
         setMenu : (state, value) => {
             state.menu = value;
         },
@@ -51,11 +63,21 @@ export default createStore({
         actionCounter(context, payload){
             const value = payload.counter;
             // 위에 생성되어 있는 setCounter를 호출함
-            context.commit('setCounter', value);
-            
+            context.commit('setCounter', value);   
+        },
+
+        // 사용하고자 하는 컴포넌트에서 page 정보를 전달함.
+        async handleData(context, payload) {
+            const page = payload.page;
+
+            const url = `http://ihongss.com/json/board.json?page=${page}`;
+            const headers = {"Content-Type":"application/json"};
+
+            const response = await axios.get(url, {headers:headers});
+            if(response.data.ret === 'y') {
+                context.commit('setItems',response.data.data);
+            }
         }
-
-
     }
 
 });

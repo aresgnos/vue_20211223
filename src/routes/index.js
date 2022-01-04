@@ -1,5 +1,5 @@
 // node_modules로부터 필요한 라이브러리 import
-import { createRouter, createWebHistory } from "vue-router";
+import { createWebHashHistory, createRouter } from "vue-router";
 
 // 추가하고자 하는 컴포넌트들
 import Home from '@/components/Home.vue';
@@ -9,6 +9,13 @@ import Logout from '@/components/Logout.vue';
 import Mypage from '@/components/Mypage.vue';
 // import Admin from '@/components/Admin.vue';
 import Board from '@/components/Board.vue';
+import BoardOne from '@/components/BoardOne.vue';
+import BoardWrite from '@/components/BoardWrite.vue';
+import Seller from '@/components/Seller.vue';
+import InsertItem from '@/components/InsertItem.vue';
+import ItemContent from '@/components/ItemContent.vue';
+import ItemInsertBatch from '@/components/ItemInsertBatch.vue';
+import ItemUpdateBatch from '@/components/ItemUpdateBatch.vue';
 
 
 // URL과 컴포넌트의 연결
@@ -22,6 +29,16 @@ const routes = [
     { path : '/mypage', name:'Mypage', component:Mypage },
     // { path : '/admin', name:'Admin', component:Admin },
     { path : '/board', name:'Board', component:Board },
+    { path : '/boardone', name:'BoardOne', component:BoardOne },
+    { path : '/boardwrite', name:'BoardWrite', component:BoardWrite },
+    { path : '/seller', name:'Seller', component:Seller },
+    { path : '/insertitem', name:'InsertItem', component:InsertItem },
+    { path : '/itemcontent', name:'ItemContent', component:ItemContent },
+    { path : '/iteminsertbatch', name:'ItemInsertBatch', component:ItemInsertBatch },
+    {path : '/itemupdatebatch', name:'ItemUpdateBatch', component:ItemUpdateBatch },
+
+
+
 ]
 
 
@@ -29,7 +46,7 @@ const routes = [
 const router = createRouter({
     //localhost:8080/login
     //localhost:8080/#login
-    history : createWebHistory(), 
+    history : createWebHashHistory(), 
     routes,
 });
 
