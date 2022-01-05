@@ -5,12 +5,13 @@
     <el-container>
       <el-header>
         <el-menu class="el-menu-demo" mode="horizontal" :router ="true"> 
-
             <el-menu-item index="home" ref="home">홈</el-menu-item>
             <el-menu-item index="login" ref="login" v-show="!logged">로그인</el-menu-item>
+            <el-menu-item index="join" ref="join" v-show="!logged">회원가입</el-menu-item>
+
             <el-menu-item index="logout" ref="logout" v-show="logged">로그아웃</el-menu-item>
             <el-menu-item index="mypage" ref="mypage" v-show="logged">마이페이지</el-menu-item>
-            <el-menu-item index="join" ref="join">회원가입</el-menu-item>
+
             <el-menu-item index="board" ref="board">게시판</el-menu-item>
             <el-menu-item index="seller" ref="seller">판매자</el-menu-item>
         </el-menu>
@@ -48,11 +49,14 @@ import {useStore} from 'vuex';
       this.changeLogged(path);
       // console.log(path);
 
+
+      // store가 변화할 때 자동으로 수행
       this.store.subscribe((mutation, state)=>{
         console.log(mutation, state);
         
+        // 로그인에서 this.store.commit('setMenu', 'home');로 보내면
         if(mutation.type==='setMenu'){
-          const tmp = mutation.payload;
+          const tmp = mutation.payload; //"home"
           this.changeLogged(tmp);
           }
       });
@@ -85,13 +89,15 @@ import {useStore} from 'vuex';
           this.logged = true;
         }
 
+        // 클릭 방식으로 메뉴 활성화
+        if(typeof this.$refs[path] !== 'undefined' ){
+        this.$refs[path].$el.click();
+        }
+
           // this.$refs.home.click(); === this.$refs['home'].click();
           // this.$refs.login.click(); === this.$refs['login'].click();
           // this.$refs.path.click(); === this.$refs[path].click(); = path 안에 있는걸 찾는다.
         
-        if(typeof this.$refs[path] !== 'undefined' ){
-        this.$refs[path].$el.click();
-        }
       }
     }
   }
