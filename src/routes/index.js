@@ -7,7 +7,6 @@ import Join from '@/components/Join.vue';
 import Login from '@/components/Login.vue';
 import Logout from '@/components/Logout.vue';
 import Mypage from '@/components/Mypage.vue';
-// import Admin from '@/components/Admin.vue';
 import Board from '@/components/Board.vue';
 import BoardOne from '@/components/BoardOne.vue';
 import BoardWrite from '@/components/BoardWrite.vue';
@@ -16,6 +15,7 @@ import InsertItem from '@/components/InsertItem.vue';
 import ItemContent from '@/components/ItemContent.vue';
 import ItemInsertBatch from '@/components/ItemInsertBatch.vue';
 import ItemUpdateBatch from '@/components/ItemUpdateBatch.vue';
+import Admin from '@/components/Admin.vue';
 
 
 // URL과 컴포넌트의 연결
@@ -27,7 +27,7 @@ const routes = [
     { path : '/login', name:'Login', component:Login },
     { path : '/logout', name:'Logout', component:Logout },
     { path : '/mypage', name:'Mypage', component:Mypage },
-    // { path : '/admin', name:'Admin', component:Admin },
+    { path : '/admin', name:'Admin', component:Admin },
     { path : '/board', name:'Board', component:Board },
     { path : '/boardone', name:'BoardOne', component:BoardOne },
     { path : '/boardwrite', name:'BoardWrite', component:BoardWrite },
@@ -35,7 +35,7 @@ const routes = [
     { path : '/insertitem', name:'InsertItem', component:InsertItem },
     { path : '/itemcontent', name:'ItemContent', component:ItemContent },
     { path : '/iteminsertbatch', name:'ItemInsertBatch', component:ItemInsertBatch },
-    {path : '/itemupdatebatch', name:'ItemUpdateBatch', component:ItemUpdateBatch },
+    { path : '/itemupdatebatch', name:'ItemUpdateBatch', component:ItemUpdateBatch },
 
 
 

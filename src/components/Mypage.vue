@@ -31,7 +31,7 @@ import Mp1 from './mypage/Mp1.vue'
 import Mp2 from './mypage/Mp2.vue'
 import Mp3 from './mypage/Mp3.vue'
 
-    export default {
+export default {
   components: { Mp1, Mp2, Mp3 },
     }
     

@@ -14,6 +14,7 @@
 
             <el-menu-item index="board" ref="board">게시판</el-menu-item>
             <el-menu-item index="seller" ref="seller">판매자</el-menu-item>
+            <el-menu-item index="admin" ref="admin">관리자</el-menu-item>
         </el-menu>
       </el-header>
 

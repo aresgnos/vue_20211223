@@ -209,15 +209,15 @@
 
                 const response = 
                     await this.axios.put(url, body, {headers:headers});
-                if(response.data.status === 200){
-                    alert('수정되었습니다.');
+                    if(response.data.status === 200){
+                        alert('수정되었습니다.');
                     this.dialogVisible = false;
                     this.$refs['file'].clear();
                     this.handleData();
 
                     // 화면갱신
-                }
-            },
+                    }
+                },
 
             async deleteRow(idx, row){
                 if(confirm ('삭제하시겠습니까?')) {
